@@ -1,0 +1,214 @@
+USE [ToDoList]
+GO
+
+/****** Object:  Table [dbo].[User]    Script Date: 17.10.2023 14:57:04 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[User](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](255) NOT NULL,
+	[email] [nvarchar](255) NOT NULL,
+	[password] [nvarchar](255) NOT NULL,
+	[role] [nvarchar](255) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [ToDoList]
+GO
+
+/****** Object:  Table [dbo].[Project]    Script Date: 17.10.2023 14:57:34 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Project](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](255) NOT NULL,
+	[description] [nvarchar](255) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [ToDoList]
+GO
+
+/****** Object:  Table [dbo].[Sprint]    Script Date: 17.10.2023 14:57:48 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Sprint](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](255) NOT NULL,
+	[description] [nvarchar](255) NOT NULL,
+	[timestart] [date] NOT NULL,
+	[timeend] [date] NOT NULL,
+	[idproject] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Sprint]  WITH CHECK ADD  CONSTRAINT [FK_Sprint_Project] FOREIGN KEY([idproject])
+REFERENCES [dbo].[Project] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[Sprint] CHECK CONSTRAINT [FK_Sprint_Project]
+GO
+
+
+USE [ToDoList]
+GO
+
+/****** Object:  Table [dbo].[Task]    Script Date: 17.10.2023 14:57:59 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Task](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](255) NOT NULL,
+	[description] [nvarchar](255) NOT NULL,
+	[timestart] [date] NOT NULL,
+	[timeend] [date] NOT NULL,
+	[idsprint] [int] NULL,
+	[status] [nvarchar](255) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Task]  WITH CHECK ADD  CONSTRAINT [FK_Task_Sprint] FOREIGN KEY([idsprint])
+REFERENCES [dbo].[Sprint] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[Task] CHECK CONSTRAINT [FK_Task_Sprint]
+GO
+
+
+USE [ToDoList]
+GO
+
+/****** Object:  Table [dbo].[UserTask]    Script Date: 17.10.2023 14:58:09 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[UserTask](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[iduser] [int] NULL,
+	[idtask] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[UserTask]  WITH CHECK ADD  CONSTRAINT [FK_UserTask_Task] FOREIGN KEY([idtask])
+REFERENCES [dbo].[Task] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[UserTask] CHECK CONSTRAINT [FK_UserTask_Task]
+GO
+
+ALTER TABLE [dbo].[UserTask]  WITH CHECK ADD  CONSTRAINT [FK_UserTask_User] FOREIGN KEY([iduser])
+REFERENCES [dbo].[User] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[UserTask] CHECK CONSTRAINT [FK_UserTask_User]
+GO
+
+USE [ToDoList]
+GO
+
+/****** Object:  Table [dbo].[Files]    Script Date: 17.10.2023 14:58:19 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Files](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](255) NOT NULL,
+	[path] [nvarchar](255) NOT NULL,
+	[idtask] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Files]  WITH CHECK ADD  CONSTRAINT [FK_File_Task] FOREIGN KEY([idtask])
+REFERENCES [dbo].[Task] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[Files] CHECK CONSTRAINT [FK_File_Task]
+GO
+
+
+USE [ToDoList]
+GO
+
+/****** Object:  Table [dbo].[Comments]    Script Date: 17.10.2023 14:58:28 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Comments](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[text] [text] NOT NULL,
+	[iduser] [int] NULL,
+	[idtask] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+INSERT INTO [User] ( name, email, password, role)
+VALUES
+    ( 'Vlad', '1@mail.ru', '123', 'admin'),
+    ( 'Dima', '2@mail.ru', '123', 'manager'),
+    ( 'Roma', '3@mail.ru', '123', 'user');
