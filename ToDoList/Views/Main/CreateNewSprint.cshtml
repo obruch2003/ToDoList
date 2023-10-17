@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "CreateNewSprint";
+}
+@model ForSprint
+
+<form asp-action="CCreateNewSprint" asp-controller="Main" asp-route-iduser="@Model.user.id" asp-route-idproject="@Model.project.id" class="createform">
+    <p class="createtitle">Create your sprint</p>
+    <div class="input-container">
+        <input asp-for="sprint.name" type="name" placeholder="Create sprint name" required>
+    </div>
+    <div class="input-container">
+        <input asp-for="sprint.description" type="description" placeholder="Create sprint description" required>
+    </div>
+    <div class="input-container">
+        <input asp-for="sprint.timestart" type="timestart" placeholder="Create sprint start" required>
+    </div>
+    <div class="input-container">
+        <input asp-for="sprint.timeend" type="timeend" placeholder="Create sprint end" required>
+    </div>
+    <div class="buttonInCreateForm">
+        <button class="UpButton">create</button>
+    </div>
+</form>

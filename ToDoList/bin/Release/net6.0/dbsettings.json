@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=ToDoList;Integrated Security=True;TrustServerCertificate=True;"
+  }
+}

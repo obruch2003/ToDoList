@@ -1,0 +1,180 @@
+.welcome {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+.todolist {
+    flex: 1;
+    margin-right: 10px;
+    height: 900px;
+    overflow: auto;
+}
+.post {
+    margin: 0 0px 0 100px;
+    display: flex;
+    justify-content: center;
+}
+.card {
+    width: 100%;
+    height: auto;
+    background: #E8EAEA;
+    border-radius: 15px;
+    display: flex;
+    margin: 50px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.title {
+    padding: 10px 15px;
+}
+.project_container_forbutton {
+    display: flex;
+    flex-direction: row;
+    margin:10px 25px;
+}
+
+.users {
+    flex: 1;
+    height: 600px;
+    overflow: auto;
+}
+
+.user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+
+}
+    .user:hover {
+        background-color: #b3b6b6;
+    }
+
+.post2 {
+    margin: 0 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.card2 {
+    width: 60%;
+    height: auto;
+    background: #E8EAEA;
+    border-radius: 15px;
+    display: flex;
+    margin: 50px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.user_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.title {
+    font-weight: 900;
+    font-size: 1.3em;
+}
+
+.task {
+    font-weight: 800;
+}
+
+.name {
+    font-weight: 800;
+}
+
+.username {
+    font-size: .9em;
+    color: #64696e;
+}
+
+.image {
+    width: 60px;
+    height: 60px;
+    background: rgb(22,19,70);
+    background: linear-gradient(295deg, rgba(22,19,70,1) 41%, rgba(89,177,237,1) 100%);
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.new_project {
+    border: none;
+    border-radius: 25px;
+    background-color: lightgray;
+    color: grey;
+    padding: 8px 15px;
+    font-weight: 700;
+    margin: 50px 0 0;
+    color:inherit;
+}
+    .new_project:hover {
+        background-color: grey;
+        color: white;
+    }
+
+
+
+
+.OpenButton {
+    width: 70px;
+    border: none;
+    border-radius: 25px;
+    background-color: green;
+    color: white;
+    padding: 8px 15px;
+    font-weight: 700;
+    margin: 0 10px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    .OpenButton:hover {
+        background-color: forestgreen;
+    }
+
+.UpButton {
+    width: 70px;
+    border: none;
+    border-radius: 25px;
+    background-color: green;
+    color: white;
+    padding: 8px 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    .UpButton:hover {
+        background-color: forestgreen;
+    }
+
+
+.DownButton {
+    width: 70px;
+    border: none;
+    border-radius: 25px;
+    background-color: red;
+    color: white;
+    padding: 8px 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    .DownButton:hover {
+        background-color: crimson;
+    }
+
+
+
+
+

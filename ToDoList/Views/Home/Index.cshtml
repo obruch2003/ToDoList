@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model User
+<img class="fon" src="/img/fon.jpg" alt="fon">
+<div class="authorization">
+    <form asp-controller="Main" asp-action="Entry" class="form">
+        <p class="form-title">Sign in to your account</p>
+        <div class="input-container">
+            <input asp-for="email" type="email" placeholder="Enter email">
+        </div>
+        <div class="input-container">
+            <input asp-for="password" type=" password" placeholder="Enter password">
+        </div>
+        <button class="submit" >
+            Sign in
+        </button>
+
+        <p class="signup-link">
+            No account?
+            <a href="/Home/Registration">Sign up</a>
+        </p>
+        <p class ="signup-link">
+            Forgot your password?
+            <a href="/Home/RecoveryPassword">Recovery your password</a>
+        </p>
+    </form>
+
+</div>

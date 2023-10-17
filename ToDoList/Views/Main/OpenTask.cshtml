@@ -1,0 +1,132 @@
+﻿@{
+    ViewData["Title"] = "Task";
+}
+@model ForTask
+
+<div id="@Model.user.id" class="container">
+    <div class="todolist">
+        <div class="post" method="post">
+            <div class="card">
+                @{
+                    <div class="task_container">
+                        <div class="task">
+                            <div class="task_title">
+                                <div class="image"></div>
+                                <div class="task_content">
+                                    <div class="text">
+                                        <p>Id: @Model.task.id. NameTask: @Model.task.name</p>
+                                        <p>Time period: @Model.task.timestart.ToShortDateString() - @Model.task.timeend.ToShortDateString()</p>
+                                        <p>Description: @Model.task.description</p>
+                                    </div>
+                                    <label class="containerr">
+                                        @{
+                                            if (Model.task.status == "complete")
+                                            {
+                                                <input id="@Model.task.id" checked="checked" type="checkbox">
+                                            }
+                                            else
+                                            {
+                                                <input id="@Model.task.id" type="checkbox">
+                                            }
+                                        }
+                                        <div class="checkmark"></div>
+                                    </label>
+                                    @if(Model.user.role!="user")
+                                    {
+                                        <script src="/js/checkbox.js"></script>
+                                    }
+                                </div>
+                                
+                            </div>
+                            <div class="files_in_task">
+                                @{
+                                    foreach (var file in Model.filesList)
+                                    {
+                                        <div class="file_container">
+                                                <img id="@file.id" class="cross" src="~/img/cross.png" />
+                                            <a target="_blank" href="~/Files/@file.name" class="filecontainer">@file.name</a>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            @if (Model.user.role != "user")
+                            {
+                                <form id="@Model.task.id" class="addfile" method="post" enctype="multipart/form-data">
+                                    <input asp-for="fileuploades.FileToUpload" type="file" class="inputfile">
+                                    <button type="submit">Upload file</button>
+                                </form>
+                            }
+                            <div class="tasks_in_sprint">
+                                @{
+                                    foreach (var user in Model.usersList)
+                                    {
+                                        <p class="users_in_tasks">Id: @user.id Name: @user.name</p>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div id="@Model.task.id" class="carD">
+                            <div class="chat-header">Chat</div>
+                            <div class="chat-window"></div>
+                            <div class="chat-input">
+                                <input type="text" class="message-input" placeholder="Type your message here">
+                                <button class="send-button">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+    <div class="users">
+        <div class="post2" method="post2">
+            <div class="card2">
+                <p class="title">Users</p>
+                <div class="user_container">
+                    @{
+                        foreach (var item in Model.AllusersList)
+                        {
+                                <div class="user">
+                                    <div class="image"></div>
+                                    <div class="user_content">
+                                        <div class="text">
+                                            <span class="name">name: @item.name, role: @item.role</span>
+                                        </div>
+                                        @{
+                                        if (Model.user.role != "user")
+                                        {
+                                            bool f = false;
+                                            foreach (var usertask in Model.AlluserTasks)
+                                            {
+                                                if (usertask.iduser == item.id && usertask.idtask == Model.task.id)
+                                                {
+                                                    f = true;
+                                                    break;
+                                                }
+                                            }
+
+                                            if (f)
+                                            {
+                                                <a id="@item.id" data-idtask="@Model.task.id" class="DownButton">Remove</a>
+                                            }
+                                            else
+                                            {
+                                                <a id="@item.id" data-idtask="@Model.task.id" class="UpButton">Add</a>
+                                            }
+                                            
+                                        }
+                                    }
+                                    </div>
+                                </div>
+                           
+                            }
+                        }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/uploadefile.js"></script>
+<script src="/js/add&removeUser.js"></script>
+<script src="/js/comment.js"></script>

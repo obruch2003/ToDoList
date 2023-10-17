@@ -1,0 +1,97 @@
+.sprint_title {
+    display: flex;
+    flex-direction: row;
+  
+}
+.sprint_titlee {
+    font-weight: 700;
+    margin: 0 0 20px 0;
+    display:flex;
+}
+.sprint {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 0px;
+   
+}
+.sprint_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+    padding: 0 15px;
+}
+.sprint_text {
+    font-size: 25px;
+    max-width: 600px;
+    width:600px;
+    word-wrap: break-word;
+}
+.sprint_container_forbutton {
+    display: flex;
+    flex-direction: row;
+    height:35px;
+    margin: 10px 25px;
+}
+.task_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.tasks_title{
+    font-weight: 900;
+    font-size: 1.3em;
+    margin: 0 30px 10px;
+}
+.task_title {
+    display: flex;
+    flex-direction: row;
+}
+.task {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 15px;
+}
+
+    .task:hover {
+        background-color: #b3b6b6;
+    }
+
+.task_container_forbutton {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 25px;
+}
+
+.task_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+}
+.tasks_in_sprint
+{
+    margin:10px 0 0 0;
+}
+.users_in_tasks {
+    padding: 5px 15px;
+    font-size: 15px;
+    font-weight: 400;
+}
+.new_task,
+.new_sprint {
+    border: none;
+    border-radius: 25px;
+    background-color: lightgray;
+    color: grey;
+    padding: 8px 15px;
+    font-weight: 700;
+    margin: 10px 0 0px;
+}
+    .new_task:hover,
+    .new_sprint:hover {
+        background-color: grey;
+        color: white;
+    }

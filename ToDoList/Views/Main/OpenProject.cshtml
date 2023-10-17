@@ -1,0 +1,156 @@
+﻿@{
+    ViewData["Title"] = "Project";
+}
+@model ForSprint
+
+<div class="container">
+    <div class="todolist">
+        <div class="post" method="post">
+            <div class="card">
+                <p class="title">Sprints</p>
+                @{
+                    int a = -1;
+                    HashSet<User> userUnique = new HashSet<User>();
+                    foreach (var sprint in Model.sprints)
+                    {
+                        <div class="sprint">
+                            <div class="sprint_container">
+                                <div class="sprint_title">
+                                    <div class="sprint_content">
+                                        <div class="sprint_titlee">
+                                            <div class="sprint_text">
+                                                <p>Id: @sprint.id. NameTask: @sprint.name</p>
+                                                <p>Time period: @sprint.timestart.ToShortDateString() - @sprint.timeend.ToShortDateString()</p>
+                                                <p>Description: @sprint.description</p>
+                                            </div>
+                                            <div class="sprint_container_forbutton">
+                                            @{
+                                                if (Model.user.role != "user")
+                                                {
+                                                    <a id="@sprint.id" class="DeleteButton">Delete</a>
+                                                }
+                                            }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="task_container">
+                                <p class="tasks_title">Tasks</p>
+                                @using (ApplicationContext Db = new ApplicationContext())
+                                {
+                                    Model.tasks = Db.Tasks.Where(x => x.idsprint == sprint.id).ToList();
+                                    foreach (var task in Model.tasks)
+                                    {
+                                        if (sprint.id == task.idsprint)
+                                        {
+                                            <div class="task">
+                                                <div class="task_title">
+                                                    <div class="image"></div>
+                                                    <div class="task_content">
+                                                        <div class="text">
+                                                            <p>Id: @task.id. NameTask: @task.name</p>
+                                                            <p>Time period: @task.timestart.ToShortDateString() - @task.timeend.ToShortDateString()</p>
+                                                            <p>Description: @task.description</p>
+                                                        </div>
+                                                        <div class="task_container_forbutton">
+                                                            <a asp-action="OpenTask" asp-controller="Main" asp-route-iduser="@Model.user.id" asp-route-idtask="@task.id" asp-route-idproject="@Model.project.id" class="OpenButton">Open</a>
+                                                            @{
+                                                                if (Model.user.role != "user")
+                                                                {
+                                                                    <a id="@task.id" class="DeleteButton">Delete</a>
+                                                                }
+                                                            }
+                                                              <label class="containerr">
+                                                                    @{
+                                                                        if(task.status == "complete")
+                                                                        {
+                                                                            <input id="@task.id" checked="checked" type="checkbox">
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input  id="@task.id" type="checkbox">
+                                                                        }  
+                                                                    }
+                                                                   <div class="checkmark"></div>
+                                                              </label>
+                                                              @if(Model.user.role!="user")
+                                                              {
+                                                                  <script src="/js/checkbox.js"></script>
+                                                              }
+                                                        </div>    
+                                                    </div>
+                                                </div>
+                                                <div class="tasks_in_sprint">
+                                                    @{
+                                                        Model.userTasks = Db.UserTasks.Where(x => x.idtask == task.id).ToList();
+                                                        foreach (var usertask in Model.userTasks)
+                                                        {
+
+                                                            Model.usersList.Add(Db.Users.FirstOrDefault(x => x.id == usertask.iduser));
+                                                            a++;
+                                                            userUnique.Add(Model.usersList[a]);
+                                                            <p class="users_in_tasks">Id: @Model.usersList[a].id Name: @Model.usersList[a].name</p>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                            
+                                        }
+                                    }
+                                }
+                                @if (Model.user.role != "user")
+                                {
+                                    <a asp-action="CreateNewTask" asp-controller="Main" asp-route-iduser="@Model.user.id" asp-route-idsprint="@sprint.id" asp-route-idproject="@Model.project.id" class="new_task">new task</a>
+                                }
+
+                            </div>
+                        </div>
+                    }
+                    if (Model.user.role != "user")
+                    {
+                        <a asp-action="CreateNewSprint" asp-controller="Main" asp-route-iduser="@Model.user.id" asp-route-idproject="@Model.project.id" class="new_sprint">new sprint</a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="users">
+        <div class="post2" method="post2">
+            <div class="card2">
+                <p class="title">Users</p>
+                <div class="user_container">
+
+                    @{
+                        HashSet<int> userAlreadyDisplayed = new HashSet<int>(); 
+                        foreach (var item in userUnique)
+                        {
+                            if (!userAlreadyDisplayed.Contains(item.id))
+                            {
+                                <div class="user">
+                                    <div class="image"></div>
+                                    <div class="user_content">
+                                        <div class="text">
+                                            <span class="name">name: @item.name, role: @item.role</span>
+                                        </div>
+                                        @{
+                                                if (Model.user.role != "user")
+                                                {
+                                                    <a id="@item.id" class="DownButton">Remove</a>
+                                                    userAlreadyDisplayed.Add(item.id);
+                                                }
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/deleteSprint.js"></script>
+<script src="/js/deleteTask.js"></script>
+<script src="/js/deleteUserFromProject.js"></script>

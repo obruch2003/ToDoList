@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "CreateNewTask";
+}
+@model ForTask 
+
+<form asp-action="CCreateNewTask" asp-controller="Main" asp-route-iduser="@Model.user.id" asp-route-idsprint="@Model.sprint.id" asp-route-idproject="@Model.project.id" class="createform">
+    <p class="createtitle">Create your task</p>
+    <div class="input-container">
+        <input asp-for="task.name" type="name" placeholder="Create task name" required>
+    </div>
+    <div class="input-container">
+        <input asp-for="task.description" type="description" placeholder="Create task description" required>
+    </div>
+    <div class="input-container">
+        <input asp-for="task.timestart" type="timestart" placeholder="Create task start" required>
+    </div>
+    <div class="input-container">
+        <input asp-for="task.timeend" type="timeend" placeholder="Create task end" required>
+    </div>
+    <div class="buttonInCreateForm">
+        <button class="UpButton">create</button>
+    </div>
+</form>
+
+
+

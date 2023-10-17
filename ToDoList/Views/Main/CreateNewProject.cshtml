@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "CreateNewProject";
+}
+@model ForProject
+
+<form asp-action="CCreateNewProject" asp-controller="Main" asp-route-iduser="@Model.user.id" class="createform">
+    <p class="createtitle">Create your project</p>
+    <div class="input-container">
+        <input asp-for="project.name" type="name" placeholder="Create project name" required>
+    </div>
+    <div class="input-container">
+        <input asp-for="project.description" type="description" placeholder="Create project description" required>
+    </div>
+    <div class="buttonInCreateForm">
+        <button class="UpButton">create</button>
+    </div>
+</form>

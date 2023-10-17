@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Registration";
+}
+@model User
+<img class="fon" src="/img/fon.jpg" alt="fon">
+<div class="authorization">
+    <form asp-controller="Main" asp-action="Create"  class="form">
+        <p class="form-title">Create your account</p>
+        <div class="input-container">
+            <input asp-for="name" type="name" placeholder="Create name" required>
+        </div>
+        <div class="input-container">
+            <input asp-for="email" type="email" placeholder="Create email" required>
+        </div>
+        <div class="input-container">
+            <input asp-for="password" type="password" placeholder="Create password" required>
+        </div>
+
+        <button href="/Home/Index" class="submit">
+            Create
+        </button>
+    </form>
+</div>
+
+

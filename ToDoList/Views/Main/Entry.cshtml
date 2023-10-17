@@ -1,0 +1,103 @@
+﻿@using ToDoList.Models
+@{
+    ViewData["Title"] = "Entry";
+}
+@model ForEntry
+<h1 class="welcome">Welcome, @Model.user.name. Your role is @Model.user.role.</h1>
+
+<div class="container">
+    <div class="todolist">
+        <div class="post" method="post">
+            <div class="card">
+                <p class="title">Projects</p>
+                @{
+                    if (Model.user.role == "admin")
+                    {
+                        foreach (var project in Model.projects)
+                        {
+                            <div class="project_container">
+                                <p class="title">Project Id: @project.id. Description: @project.name</p>
+                                <div class="project_container_forbutton">
+                                    <a asp-action="OpenProject" asp-controller="Main" asp-route-idproject="@project.id" asp-route-iduser="@Model.user.id" class="OpenButton">Open</a>
+                                    <a id ="@project.id" class="DeleteButton">Delete</a>
+                                     
+                                </div>
+                            </div>
+                        }
+                        <script src = "/js/projectdelete.js"></script>
+                    }
+                
+                    else
+                    {
+                        foreach (var project in Model.user.UserInProject(Model.user.id))
+                        {
+                            <div class="project_container">
+                                <p class="title">Project Id: @project.id. Description: @project.name</p>
+                                <div class="project_container_forbutton">
+                                    <a asp-action="OpenProject" asp-controller="Main" asp-route-idproject="@project.id" asp-route-iduser="@Model.user.id" class="OpenButton">Open</a>
+                                </div>
+                            </div>
+                        }
+
+                    }
+                   }
+                
+                @{
+                    if (Model.user.role != "user")
+                    {
+                        <a asp-action="CreateNewProject" asp-controller="Main" asp-route-iduser="@Model.user.id" class="new_project">new project</a>
+                    }
+                }
+            
+            </div>
+        </div>
+    </div>
+
+    <div class="users">
+        <div class="post2" method="post2">
+            <div class="card2">
+                <p class="title">Users</p>
+                <div class="user_container">
+
+                    @{
+                        foreach (var item in Model.usersList)
+                        {
+                            <div class="user">
+                                <div class="image"></div>
+                                <div class="user_content">
+                                    <div class="text">
+                                        <span class="name">name: @item.name, role: @item.role</span>
+                                    </div>
+                                    @{
+                                        if (Model.user.role == "admin")
+                                        {
+                                            if (item.role == "admin")
+                                            {
+
+                                            }
+                                            else if (item.role == "user")
+                                            {
+                                                <a id="@item.id" class="UpButton">Up</a>
+                                            }
+                                            else
+                                            {
+                                                <a id="@item.id" class="DownButton">Down</a>
+                                            }
+                                           
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <script src="/js/up&downUser.js"></script>
+                        }
+                    }
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
